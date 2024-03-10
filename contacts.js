@@ -31,6 +31,10 @@ async function removeContact(contactId) {
 	return result;
 }
 
+async function saveContacts(data) {
+	await fs.writeFile(contactsPath, JSON.stringify(data, null, 2), "utf-8");
+}
+
 async function addContact(name, email, phone) {
 	const data = await listContacts();
 
@@ -43,8 +47,8 @@ async function addContact(name, email, phone) {
 	};
 
 	data.push(newContact);
-
-	await fs.writeFile(contactsPath, JSON.stringify(data));
+	await saveContacts(data);
+	await fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
 
 	return newContact;
 }
