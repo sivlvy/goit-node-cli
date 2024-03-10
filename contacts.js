@@ -18,17 +18,17 @@ async function getContactById(contactId) {
 }
 
 async function removeContact(contactId) {
-	const data = await fs.readFile(contactsPath);
+	const data = await listContacts();
 	const index = data.findIndex((item) => item.id === contactId);
 
 	if (index === -1) {
 		return null;
 	}
 
-	const [result] = data.splice(index, 1);
+	const deletedContact = data.splice(index, 1);
 
 	await fs.writeFile(contactsPath, JSON.stringify(data));
-	return result;
+	return deletedContact;
 }
 
 async function saveContacts(data) {
@@ -43,7 +43,6 @@ async function addContact(name, email, phone) {
 		name,
 		email,
 		phone,
-		...data,
 	};
 
 	data.push(newContact);
