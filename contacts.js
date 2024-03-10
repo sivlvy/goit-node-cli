@@ -10,10 +10,10 @@ async function listContacts() {
 }
 
 async function getContactById(contactId) {
-	const data = await fs.readFile(contactsPath);
+	const data = await listContacts();
 
 	const result = data.find((item) => item.id === contactId);
-
+	console.log(result);
 	return result || null;
 }
 
